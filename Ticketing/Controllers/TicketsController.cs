@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using GoldenTicket.Data;
 using GoldenTicket.Models;
 using GoldenTicket.Models.TicketsViewModels;
@@ -9,28 +6,28 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace GoldenTicket.Controllers
 {
     /// <summary>
     /// Controller for managing tickets
     /// </summary>
-    [Authorize]
+    //[Authorize]
+    [Route("api/[controller]/[action]")]
     public class TicketsController : Controller
     {
         private GoldenTicketContext _context;
 
-        private UserManager<Technician> _userManager;
+        //private UserManager<Technician> _userManager;
 
         /// <summary>
         /// Initializes private variable _context
         /// </summary>
         /// <param name="context">context of current ticket</param>
         /// <param name="userManager">The user manager</param>
-        public TicketsController(GoldenTicketContext context, UserManager<Technician> userManager)
+        public TicketsController(GoldenTicketContext context/*, UserManager<Technician> userManager*/)
         {
             _context = context;
-            _userManager = userManager;
+            //_userManager = userManager;
         }
 
         /// <summary>
@@ -41,6 +38,10 @@ namespace GoldenTicket.Controllers
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] bool includeClosed = false)
         {
+            //working
+            //var orderedTickets2 =  _context.Tickets
+            //    .ToList();
+
             var orderedTickets = await _context.Tickets
                 .OrderByDescending(ticket => ticket.DateAdded)
                 .GroupBy(ticket => ticket.ClientId)
@@ -139,8 +140,9 @@ namespace GoldenTicket.Controllers
             {
                 End = time.End,
                 Start = time.Start,
-                TicketId = time.TicketId,
-                TechnicianId = _userManager.GetUserName(User)
+                TicketId = time.TicketId
+                //jaafar
+                //,TechnicianId = _userManager.GetUserName(User)
             });
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Open), new { id = time.TicketId });

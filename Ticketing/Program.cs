@@ -2,9 +2,11 @@ using GoldenTicket.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<GoldenTicketContext>();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -24,5 +26,9 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseAuthentication();
+
+app.MapControllers();
 
 app.Run();
