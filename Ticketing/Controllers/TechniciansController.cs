@@ -13,7 +13,8 @@ namespace GoldenTicket.Controllers
     /// <summary>
     /// Controller for technicians
     /// </summary>
-    [Authorize(Roles = DataConstants.AdministratorRole)]
+    //[Authorize(Roles = DataConstants.AdministratorRole)]
+    [Route("api/[controller]/[action]")]
     public class TechniciansController : Controller
     {
         private GoldenTicketContext _context;

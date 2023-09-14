@@ -13,8 +13,9 @@ namespace GoldenTicket.Controllers
     /// <summary>
     /// Controller for Clients
     /// </summary>
-    [Authorize]
-    public partial class ClientsController : Controller
+    [Route("api/[controller]/[action]")]
+    //[Authorize]
+    public /*partial*/ class ClientsController : Controller
     {
         private GoldenTicketContext _context;
 

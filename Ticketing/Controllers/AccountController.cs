@@ -11,6 +11,7 @@ namespace GoldenTicket.Controllers
     /// <summary>
     /// Controller for accounts
     /// </summary>
+    [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly SignInManager<Technician> _signInManager;
